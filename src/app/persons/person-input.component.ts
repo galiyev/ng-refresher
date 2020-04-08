@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter  } from '@angular/core'
+import { Component, OnInit  } from '@angular/core';
+import { PersonService } from './persons.service';
 
 
 @Component({
@@ -7,15 +8,20 @@ import { Component, Output, EventEmitter  } from '@angular/core'
   styleUrls:['./person-input.component.css']
 })
 
-export class PersonInputComponent {
+export class PersonInputComponent implements OnInit {
 
-  @Output() personCreate = new EventEmitter<string>();
+  constructor(private prsService:PersonService){
 
+  }
+
+  ngOnInit(): void {
+    throw new Error("Method not implemented.");
+  }
   enteredPersonName = '';
 
   onCreatePerson(){
     console.log('Created person '+this.enteredPersonName);
-    this.personCreate.emit(this.enteredPersonName);
+    this.prsService.addPerson(this.enteredPersonName);
     this.enteredPersonName='';
   }
 }

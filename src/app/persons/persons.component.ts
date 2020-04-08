@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PersonService } from './persons.service';
 
 @Component({
@@ -6,10 +6,21 @@ import { PersonService } from './persons.service';
   templateUrl:'./persons.component.html'
 
 })
-export class PersonsComponent {
+export class PersonsComponent implements OnInit {
     personList:string[];
+    // prsService: PersonService;
 
-   constructor(prsService:PersonService){
-        this.personList = prsService.persons;
+
+   constructor(private prsService:PersonService){
+        // this.prsService = prsService;
+   }
+
+   onRemovePerson(name:string){
+      this.prsService.removePerson(name);
+   }
+
+
+   ngOnInit(): void {
+        this.personList = this.prsService.persons;
    }
 }
